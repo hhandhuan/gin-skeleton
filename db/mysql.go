@@ -1,0 +1,7 @@
+package db
+
+var (
+	Mysql = ""
+)
+
+
