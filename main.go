@@ -27,7 +27,7 @@ func main() {
 	e := gin.New()
 	e.Use(gin.Logger(), gin.Recovery())
 
-	server := &http.Server{
+	s := &http.Server{
 		Addr:           fmt.Sprintf(":%s", "8080"),
 		Handler:        routes.Register(e),
 		ReadTimeout:    10 * time.Second,
@@ -36,7 +36,7 @@ func main() {
 	}
 
 	go func() {
-		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		if err := s.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("listen: %s\n", err)
 		}
 	}()
@@ -48,7 +48,7 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
-	if err := server.Shutdown(ctx); err != nil {
+	if err := s.Shutdown(ctx); err != nil {
 		log.Println("Server Shutdown:", err)
 	}
 
