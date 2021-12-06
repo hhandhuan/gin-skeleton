@@ -2,21 +2,19 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/hhandhuan/gin-skeleton/app/api"
-	"github.com/hhandhuan/gin-skeleton/app/utils/response"
+	"github.com/hhandhuan/gin-skeleton/internal/api"
+	"github.com/hhandhuan/gin-skeleton/internal/utils/response"
 	"net/http"
 )
 
 var (
-	NotFoundErr       = "not found"
-	MethodNotFoundErr = "method not found"
+	NotFoundErr       = "request not found"
+	MethodNotFoundErr = "request method not found"
 )
 
 func Register(e *gin.Engine) *gin.Engine {
-	e.GET("ping", func(ctx *gin.Context) {
-		response.Data(ctx, 0, "ok", nil)
-	})
-	e.GET("echo", api.Hello.Echo)
+	e.GET("user/details", api.User.Details)
+	e.POST("user/create", api.User.Create)
 	e.NoRoute(func(ctx *gin.Context) {
 		response.Error(ctx, http.StatusNotFound, NotFoundErr)
 	})

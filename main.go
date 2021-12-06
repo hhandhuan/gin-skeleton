@@ -4,7 +4,10 @@ import (
 	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/hhandhuan/gin-skeleton/app/routes"
+	_ "github.com/hhandhuan/gin-skeleton/docs"
+	"github.com/hhandhuan/gin-skeleton/internal/routes"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
 	"net/http"
 	"os"
@@ -14,9 +17,13 @@ import (
 )
 
 var (
-	timeout = time.Second * 5
+	timeout = time.Second * 1
 )
 
+// @title gin-skeleton
+// @version 1.0
+// @description gin-skeleton 示例项目
+// @host 127.0.0.1:8080
 func main() {
 	defer func() {
 		if r := recover(); r != nil {
@@ -25,7 +32,11 @@ func main() {
 	}()
 
 	e := gin.New()
+
 	e.Use(gin.Logger(), gin.Recovery())
+
+	// swagger docs 默认: 127.0.0.1:8080/swagger/index.html
+	e.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	s := &http.Server{
 		Addr:           fmt.Sprintf(":%s", "8080"),
@@ -54,6 +65,6 @@ func main() {
 
 	select {
 	case <-ctx.Done():
-		log.Println("timeout of 1 seconds.")
+		log.Println(fmt.Sprintf("timeout of %d seconds.", timeout))
 	}
 }
