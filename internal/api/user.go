@@ -23,7 +23,7 @@ type user struct{}
 // @Summary 用户详情
 // @Schemes
 // @Description hello echo
-// @Tags 文章管理
+// @Tags 用户管理
 // @Accept json
 // @Produce json
 // @Success 200 object R
@@ -36,7 +36,7 @@ func (u *user) Details(ctx *gin.Context) {
 // @Summary 用户创建
 // @Schemes
 // @Description hello echo
-// @Tags 文章管理
+// @Tags 用户管理
 // @Accept json
 // @Produce json
 // @Success 200 object R
