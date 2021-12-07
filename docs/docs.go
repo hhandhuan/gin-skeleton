@@ -33,14 +33,14 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "文章管理"
+                    "用户管理"
                 ],
                 "summary": "用户创建",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.R"
+                            "$ref": "#/definitions/response.Result"
                         }
                     }
                 }
@@ -56,14 +56,14 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "文章管理"
+                    "用户管理"
                 ],
                 "summary": "用户详情",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.R"
+                            "$ref": "#/definitions/response.Result"
                         }
                     }
                 }
@@ -71,17 +71,19 @@ var doc = `{
         }
     },
     "definitions": {
-        "api.R": {
+        "response.Result": {
             "type": "object",
             "properties": {
                 "code": {
-                    "type": "string",
-                    "example": "0"
+                    "description": "业务码",
+                    "type": "integer"
                 },
-                "data": {},
+                "data": {
+                    "description": "消息体"
+                },
                 "msg": {
-                    "type": "string",
-                    "example": "信息"
+                    "description": "业务消息",
+                    "type": "string"
                 }
             }
         }

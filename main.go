@@ -4,9 +4,11 @@ import (
 	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/hhandhuan/gin-skeleton/configs"
+	"github.com/hhandhuan/gin-skeleton/db"
 	_ "github.com/hhandhuan/gin-skeleton/docs"
 	"github.com/hhandhuan/gin-skeleton/internal/routes"
-	swaggerfiles "github.com/swaggo/files"
+	waggeries "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
 	"net/http"
@@ -25,18 +27,17 @@ var (
 // @description gin-skeleton 示例项目
 // @host 127.0.0.1:8080
 func main() {
-	defer func() {
-		if r := recover(); r != nil {
-			log.Println(r)
-		}
-	}()
+	configs.Initialize()
+	db.MysqlInitialize()
+	RunServer()
+}
 
+// RunServer RunServer
+func RunServer() {
 	e := gin.New()
-
 	e.Use(gin.Logger(), gin.Recovery())
-
 	// swagger docs 默认: 127.0.0.1:8080/swagger/index.html
-	e.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	e.GET("/swagger/*any", ginSwagger.WrapHandler(waggeries.Handler))
 
 	s := &http.Server{
 		Addr:           fmt.Sprintf(":%s", "8080"),

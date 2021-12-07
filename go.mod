@@ -16,8 +16,10 @@ require (
 	github.com/swaggo/swag v1.7.6
 	github.com/ugorji/go v1.2.6 // indirect
 	golang.org/x/crypto v0.0.0-20211202192323-5770296d904e // indirect
-	golang.org/x/net v0.0.0-20211205041911-012df41ee64c // indirect
+	golang.org/x/net v0.0.0-20211206223403-eba003a116a9 // indirect
 	golang.org/x/sys v0.0.0-20211205182925-97ca703d548d // indirect
 	golang.org/x/tools v0.1.8 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
+	gorm.io/driver/mysql v1.2.1
+	gorm.io/gorm v1.22.4
 )

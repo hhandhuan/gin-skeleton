@@ -5,19 +5,11 @@ import (
 	"github.com/hhandhuan/gin-skeleton/internal/utils/response"
 )
 
-var (
-	User = &user{}
-)
-
-type R struct {
-	Code string      `json:"code" example:"0"`
-	Msg  string      `json:"msg" example:"信息"`
-	Data interface{} `json:"data"`
-}
+var User = &user{}
 
 type user struct{}
 
-// @BasePath /echo
+// @BasePath /user
 
 // Details godoc
 // @Summary 用户详情
@@ -26,7 +18,7 @@ type user struct{}
 // @Tags 用户管理
 // @Accept json
 // @Produce json
-// @Success 200 object R
+// @Success 200 object response.Result
 // @Router /user/details [get]
 func (u *user) Details(ctx *gin.Context) {
 	response.Data(ctx, 0, "ok", nil)
@@ -39,7 +31,7 @@ func (u *user) Details(ctx *gin.Context) {
 // @Tags 用户管理
 // @Accept json
 // @Produce json
-// @Success 200 object R
+// @Success 200 object response.Result
 // @Router /user/create [post]
 func (u *user) Create(ctx *gin.Context) {
 	response.Data(ctx, 0, "ok", nil)

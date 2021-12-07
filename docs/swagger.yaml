@@ -1,12 +1,13 @@
 definitions:
-  api.R:
+  response.Result:
     properties:
       code:
-        example: "0"
-        type: string
-      data: {}
+        description: 业务码
+        type: integer
+      data:
+        description: 消息体
       msg:
-        example: 信息
+        description: 业务消息
         type: string
     type: object
 host: 127.0.0.1:8080
@@ -27,10 +28,10 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.R'
+            $ref: '#/definitions/response.Result'
       summary: 用户创建
       tags:
-      - 文章管理
+      - 用户管理
   /user/details:
     get:
       consumes:
@@ -42,8 +43,8 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.R'
+            $ref: '#/definitions/response.Result'
       summary: 用户详情
       tags:
-      - 文章管理
+      - 用户管理
 swagger: "2.0"
