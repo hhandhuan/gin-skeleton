@@ -1,6 +1,6 @@
 package model
 
-import "github.com/hhandhuan/gin-skeleton/db"
+import "github.com/hhandhuan/gin-skeleton/database"
 
 var (
 	UserTableName = "users"      // 表名
@@ -22,6 +22,6 @@ type (
 
 func (u *userModel) GetUserByUsername(name string) *UserEntity {
 	var user *UserEntity
-	db.Mysql.Table(UserTableName).Where("username = ?", name).First(user)
+	database.Mysql.Table(UserTableName).Where("username = ?", name).First(user)
 	return user
 }

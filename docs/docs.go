@@ -79,7 +79,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "data": {
-                    "description": "消息体"
+                    "description": "业务消息体"
                 },
                 "msg": {
                     "description": "业务消息",

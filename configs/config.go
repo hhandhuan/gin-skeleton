@@ -2,6 +2,6 @@ package configs
 
 var Conf = ""
 
-func Initialize() {
+func InitConfig() {
 	Conf = "configs"
 }

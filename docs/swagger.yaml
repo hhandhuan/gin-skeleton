@@ -5,7 +5,7 @@ definitions:
         description: 业务码
         type: integer
       data:
-        description: 消息体
+        description: 业务消息体
       msg:
         description: 业务消息
         type: string

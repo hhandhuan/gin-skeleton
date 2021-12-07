@@ -1,4 +1,4 @@
-package db
+package database
 
 import (
 	"fmt"
@@ -22,8 +22,8 @@ func getDns() (dsn string) {
 	return
 }
 
-// MysqlInitialize 初始化数据库
-func MysqlInitialize() {
+// MysqlInit 初始化数据库
+func MysqlInit() {
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		DSN:                       getDns(), // DSN data source name
 		DefaultStringSize:         255,      // string 类型字段的默认长度
