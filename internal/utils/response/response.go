@@ -12,19 +12,11 @@ type Result struct {
 }
 
 // Data 返回消息
-func Data(ctx *gin.Context, code int, msg string, data interface{}) {
-	ctx.JSON(http.StatusOK, Result{
-		Code: code,
-		Msg:  msg,
-		Data: data,
-	})
+func Data(ctx *gin.Context, data interface{}) {
+	ctx.JSON(http.StatusOK, &Result{Code: 0, Msg: "ok", Data: data})
 }
 
 // Error 错误返回
 func Error(ctx *gin.Context, code int, msg string) {
-	ctx.JSON(http.StatusOK, Result{
-		Code: code,
-		Msg:  msg,
-		Data: nil,
-	})
+	ctx.JSON(http.StatusOK, &Result{Code: code, Msg: msg})
 }

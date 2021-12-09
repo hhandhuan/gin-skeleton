@@ -6,7 +6,7 @@ import (
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"github.com/hhandhuan/gin-skeleton/configs"
-	"github.com/hhandhuan/gin-skeleton/internal/routes"
+	"github.com/hhandhuan/gin-skeleton/internal/route"
 	waggeries "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
@@ -33,7 +33,7 @@ func Run() {
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(waggeries.Handler))
 	server := &http.Server{
 		Addr:           configs.Conf.Server.Addr,
-		Handler:        routes.Register(engine),
+		Handler:        route.Register(engine),
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20, // 1m
@@ -50,13 +50,13 @@ func Run() {
 	<-quit
 
 	// delay in launching services
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*1)
 	defer cancel()
 	if err := server.Shutdown(ctx); err != nil {
 		log.Println("Server Shutdown:", err)
 	}
 	select {
 	case <-ctx.Done():
-		log.Println(fmt.Sprintf("timeout of %d seconds.", 5))
+		log.Println(fmt.Sprintf("timeout of %d seconds.", 1))
 	}
 }

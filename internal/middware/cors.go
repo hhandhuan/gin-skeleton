@@ -1,4 +1,4 @@
-package middwares
+package middware
 
 import (
 	"github.com/gin-gonic/gin"

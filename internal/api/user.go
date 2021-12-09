@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/hhandhuan/gin-skeleton/internal/service"
 	"github.com/hhandhuan/gin-skeleton/internal/utils/response"
 )
 
@@ -21,7 +22,7 @@ type user struct{}
 // @Success 200 object response.Result
 // @Router /user/details [get]
 func (u *user) Details(ctx *gin.Context) {
-	response.Data(ctx, 0, "ok", nil)
+	response.Data(ctx, service.UserService.GetUsers())
 }
 
 // Create godoc
@@ -34,5 +35,5 @@ func (u *user) Details(ctx *gin.Context) {
 // @Success 200 object response.Result
 // @Router /user/create [post]
 func (u *user) Create(ctx *gin.Context) {
-	response.Data(ctx, 0, "ok", nil)
+	response.Data(ctx, &response.Result{})
 }
