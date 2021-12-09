@@ -101,12 +101,12 @@ type swaggerInfo struct {
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
-	Version:     "1.0",
-	Host:        "127.0.0.1:8080",
+	Version:     "",
+	Host:        "",
 	BasePath:    "",
 	Schemes:     []string{},
-	Title:       "gin-skeleton",
-	Description: "gin-skeleton 示例项目",
+	Title:       "",
+	Description: "",
 }
 
 type s struct{}

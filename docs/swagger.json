@@ -1,12 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "gin-skeleton 示例项目",
-        "title": "gin-skeleton",
-        "contact": {},
-        "version": "1.0"
+        "contact": {}
     },
-    "host": "127.0.0.1:8080",
     "paths": {
         "/user/create": {
             "post": {

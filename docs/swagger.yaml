@@ -10,12 +10,8 @@ definitions:
         description: 业务消息
         type: string
     type: object
-host: 127.0.0.1:8080
 info:
   contact: {}
-  description: gin-skeleton 示例项目
-  title: gin-skeleton
-  version: "1.0"
 paths:
   /user/create:
     post:
