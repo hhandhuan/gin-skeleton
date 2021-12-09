@@ -1,4 +1,28 @@
 definitions:
+  model.User:
+    properties:
+      create_at:
+        description: 创建时间
+        type: integer
+      id:
+        description: ID
+        type: integer
+      nickname:
+        description: 用户呢称
+        type: string
+      password:
+        description: 密码
+        type: string
+      phone:
+        description: 手机号
+        type: string
+      updated_at:
+        description: 更新时间
+        type: integer
+      username:
+        description: 用户名称
+        type: string
+    type: object
   response.Result:
     properties:
       code:
@@ -13,11 +37,11 @@ definitions:
 info:
   contact: {}
 paths:
-  /user/create:
+  /api/user/create:
     post:
       consumes:
       - application/json
-      description: hello echo
+      description: 用户创建
       produces:
       - application/json
       responses:
@@ -28,18 +52,20 @@ paths:
       summary: 用户创建
       tags:
       - 用户管理
-  /user/details:
+  /api/user/details:
     get:
       consumes:
       - application/json
-      description: hello echo
+      description: 用户详情
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/response.Result'
+            items:
+              $ref: '#/definitions/model.User'
+            type: array
       summary: 用户详情
       tags:
       - 用户管理

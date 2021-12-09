@@ -23,9 +23,9 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/user/create": {
+        "/api/user/create": {
             "post": {
-                "description": "hello echo",
+                "description": "用户创建",
                 "consumes": [
                     "application/json"
                 ],
@@ -46,9 +46,9 @@ var doc = `{
                 }
             }
         },
-        "/user/details": {
+        "/api/user/details": {
             "get": {
-                "description": "hello echo",
+                "description": "用户详情",
                 "consumes": [
                     "application/json"
                 ],
@@ -63,7 +63,10 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Result"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.User"
+                            }
                         }
                     }
                 }
@@ -71,6 +74,39 @@ var doc = `{
         }
     },
     "definitions": {
+        "model.User": {
+            "type": "object",
+            "properties": {
+                "create_at": {
+                    "description": "创建时间",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "ID",
+                    "type": "integer"
+                },
+                "nickname": {
+                    "description": "用户呢称",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "密码",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "手机号",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "更新时间",
+                    "type": "integer"
+                },
+                "username": {
+                    "description": "用户名称",
+                    "type": "string"
+                }
+            }
+        },
         "response.Result": {
             "type": "object",
             "properties": {

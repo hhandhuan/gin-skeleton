@@ -3,18 +3,19 @@ package server
 import (
 	"context"
 	"fmt"
-	"github.com/gin-contrib/pprof"
-	"github.com/gin-gonic/gin"
-	"github.com/hhandhuan/gin-skeleton/configs"
-	"github.com/hhandhuan/gin-skeleton/internal/route"
-	waggeries "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/gin-contrib/pprof"
+	"github.com/gin-gonic/gin"
+	"github.com/hhandhuan/gin-skeleton/configs"
+	"github.com/hhandhuan/gin-skeleton/internal/route"
+	waggeries "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 
 	_ "github.com/hhandhuan/gin-skeleton/docs"
 )

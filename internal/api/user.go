@@ -10,17 +10,17 @@ var User = &user{}
 
 type user struct{}
 
-// @BasePath /user
+// @BasePath /api/user
 
 // Details godoc
 // @Summary 用户详情
 // @Schemes
-// @Description hello echo
+// @Description 用户详情
 // @Tags 用户管理
 // @Accept json
 // @Produce json
-// @Success 200 object response.Result
-// @Router /user/details [get]
+// @Success 200 object []model.User
+// @Router /api/user/details [get]
 func (u *user) Details(ctx *gin.Context) {
 	response.Data(ctx, service.UserService.GetUsers())
 }
@@ -28,12 +28,12 @@ func (u *user) Details(ctx *gin.Context) {
 // Create godoc
 // @Summary 用户创建
 // @Schemes
-// @Description hello echo
+// @Description 用户创建
 // @Tags 用户管理
 // @Accept json
 // @Produce json
 // @Success 200 object response.Result
-// @Router /user/create [post]
+// @Router /api/user/create [post]
 func (u *user) Create(ctx *gin.Context) {
 	response.Data(ctx, &response.Result{})
 }
