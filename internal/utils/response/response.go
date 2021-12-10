@@ -2,6 +2,7 @@ package response
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/hhandhuan/gin-skeleton/internal/errors"
 	"net/http"
 )
 
@@ -17,6 +18,6 @@ func Data(ctx *gin.Context, data interface{}) {
 }
 
 // Error 错误返回
-func Error(ctx *gin.Context, code int, msg string) {
-	ctx.JSON(http.StatusOK, &Result{Code: code, Msg: msg})
+func Error(ctx *gin.Context, error *errors.Error) {
+	ctx.JSON(http.StatusOK, &Result{Code: error.Code, Msg: error.Msg})
 }

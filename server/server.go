@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -45,20 +44,19 @@ func Run() {
 		}
 	}()
 
-	// monitor service termination signal.
+	// 监听信号
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	// Blocked
 	<-quit
 
-	// delay in launching services
+	// 延时终止服务避免未处理完之前的请求
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*1)
 	defer cancel()
 	if err := server.Shutdown(ctx); err != nil {
-		log.Println("Server Shutdown:", err)
+		log.Printf("Server Shutdown: %v \n", err)
 	}
 	select {
 	case <-ctx.Done():
-		log.Println(fmt.Sprintf("timeout of %d seconds.", 1))
+		log.Printf("timeout of %d seconds. \n", 1)
 	}
 }

@@ -1,7 +1,10 @@
 package api
 
 import (
-	"github.com/hhandhuan/gin-skeleton/internal/utils/jwt"
+	"fmt"
+	"github.com/hhandhuan/gin-skeleton/internal/errors"
+	apiRequest "github.com/hhandhuan/gin-skeleton/internal/request"
+	"github.com/hhandhuan/gin-skeleton/internal/service"
 	"github.com/hhandhuan/gin-skeleton/internal/utils/response"
 	"log"
 
@@ -22,12 +25,16 @@ type auth struct{}
 // @Success 200 object response.Result
 // @Router /api/auth/token [post]
 func (*auth) Token(ctx *gin.Context) {
-	token, err := jwt.MakeToken(11)
-	if err != nil {
-		response.Error(ctx, 5001, "make token error")
-		return
+	var request apiRequest.CreateAuthTokenRequest
+	if err := ctx.ShouldBindJSON(&request); err != nil {
+		response.Error(ctx, errors.NewError(errors.ParamCode, err.Error()))
 	}
-	response.Data(ctx, token)
+	err, token := service.AuthService.CreateToken(&request)
+	if err != nil {
+		response.Error(ctx, err)
+	} else {
+		response.Data(ctx, gin.H{"token": fmt.Sprintf("Bearer %s", token)})
+	}
 }
 
 // Refresh 刷新令牌

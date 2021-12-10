@@ -3,13 +3,9 @@ package route
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/hhandhuan/gin-skeleton/internal/api"
+	"github.com/hhandhuan/gin-skeleton/internal/errors"
 	"github.com/hhandhuan/gin-skeleton/internal/middware"
 	"github.com/hhandhuan/gin-skeleton/internal/utils/response"
-)
-
-var (
-	NotFoundErr       = "request not found"
-	MethodNotFoundErr = "request method not found"
 )
 
 func Register(engine *gin.Engine) *gin.Engine {
@@ -24,10 +20,10 @@ func Register(engine *gin.Engine) *gin.Engine {
 		}
 	}
 	engine.NoRoute(func(ctx *gin.Context) {
-		response.Error(ctx, 4004, NotFoundErr)
+		response.Error(ctx, errors.NewError(errors.CommonCode, "not found"))
 	})
 	engine.NoMethod(func(ctx *gin.Context) {
-		response.Error(ctx, 4005, MethodNotFoundErr)
+		response.Error(ctx, errors.NewError(errors.CommonCode, "method not found"))
 	})
 	return engine
 }
