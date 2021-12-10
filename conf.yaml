@@ -1,9 +1,11 @@
 server:
   addr: ":8081"
-  # gin mode ，可选值： debug 、 test 、 release
   mode: "debug"
-  # 开启 pprof
   pprof: true
 database:
-  # database dsn
   link: "root:@(127.0.0.1:3306)/gin-admin?charset=utf8mb4&parseTime=True&loc=Local"
+jwt:
+  # 加密
+  secret: "K~ojhVn4:Q6cbZd)dR.1Q7zQTDYU)s?bA_WpC0=:"
+  # 周期天
+  ttl: 7

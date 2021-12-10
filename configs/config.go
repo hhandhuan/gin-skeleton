@@ -15,9 +15,15 @@ type Database struct {
 	Link string `mapstructure:"link"`
 }
 
+type Jwt struct {
+	Secret string `mapstructure:"secret"`
+	Ttl    int    `mapstructure:"ttl"`
+}
+
 type Config struct {
 	Server   `mapstructure:"server"`
 	Database `mapstructure:"database"`
+	Jwt      `mapstructure:"jwt"`
 }
 
 var Conf = &Config{}

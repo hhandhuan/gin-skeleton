@@ -48,6 +48,7 @@ func Run() {
 	// monitor service termination signal.
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	// Blocked
 	<-quit
 
 	// delay in launching services

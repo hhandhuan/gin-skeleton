@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/cosmtrek/air v1.27.8 // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/gin-contrib/pprof v1.3.0 // indirect

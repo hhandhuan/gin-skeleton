@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/hhandhuan/gin-skeleton/internal/service"
 	"github.com/hhandhuan/gin-skeleton/internal/utils/response"
+	"log"
 )
 
 var User = &user{}
@@ -22,6 +23,8 @@ type user struct{}
 // @Success 200 object []model.User
 // @Router /api/user/details [get]
 func (u *user) Details(ctx *gin.Context) {
+	log.Println(ctx.Get("uid"))
+	log.Println(ctx.Get("uid"))
 	response.Data(ctx, service.UserService.GetUsers())
 }
 
