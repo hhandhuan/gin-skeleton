@@ -1,10 +1,10 @@
 package errors
 
 const (
-	AuthCode   = 4001
-	ParamCode  = 4002
-	ServerCode = 5000
-	CommonCode = 4000
+	UNAuthCode = 4001 // 未授权错误
+	ParamCode  = 4002 // 参数错误
+	ServerCode = 5000 // 服务端错误
+	CommonCode = 4000 // 通用错误
 )
 
 type Error struct {

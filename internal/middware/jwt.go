@@ -16,18 +16,18 @@ func JwtAuth() gin.HandlerFunc {
 		token := ctx.Request.Header.Get("Authorization")
 		tokens := strings.Split(token, " ")
 		if len(token) <= 0 || tokens[0] != "Bearer" || len(tokens[1]) <= 0 {
-			response.Error(ctx, errors.NewError(errors.AuthCode, "invalid token"))
+			response.Error(ctx, errors.NewError(errors.UNAuthCode, "invalid token"))
 			ctx.Abort()
 			return
 		}
 		claim, err := jwt.ParseToken(tokens[1])
 		if err != nil {
-			response.Error(ctx, errors.NewError(errors.AuthCode, err.Error()))
+			response.Error(ctx, errors.NewError(errors.UNAuthCode, err.Error()))
 			ctx.Abort()
 			return
 		}
 		if time.Now().Unix() > claim.ExpiresAt {
-			response.Error(ctx, errors.NewError(errors.AuthCode, "token has expired"))
+			response.Error(ctx, errors.NewError(errors.UNAuthCode, "token has expired"))
 			ctx.Abort()
 			return
 		}
