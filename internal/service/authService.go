@@ -25,7 +25,7 @@ func (*authService) CreateToken(request *request.CreateAuthTokenRequest) (*error
 	}
 	token, err := jwt.MakeToken(user.ID)
 	if err != nil {
-		return errors.NewError(errors.CommonCode, err.Error()), ""
+		return errors.NewError(errors.CommonCode, err), ""
 	}
 	return nil, token
 }

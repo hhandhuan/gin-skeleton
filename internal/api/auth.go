@@ -29,7 +29,7 @@ type auth struct{}
 func (*auth) Token(ctx *gin.Context) {
 	var request apiRequest.CreateAuthTokenRequest
 	if err := ctx.ShouldBindJSON(&request); err != nil {
-		response.Error(ctx, errors.NewError(errors.ParamCode, err.Error()))
+		response.Error(ctx, errors.NewError(errors.ParamCode, err))
 		return
 	}
 	err, token := service.AuthService.CreateToken(&request)
@@ -37,7 +37,8 @@ func (*auth) Token(ctx *gin.Context) {
 		response.Error(ctx, err)
 		return
 	} else {
-		response.Data(ctx, gin.H{"token": fmt.Sprintf("Bearer %s", token)})
+		result := gin.H{"token": fmt.Sprintf("Bearer %s", token)}
+		response.Data(ctx, result)
 	}
 }
 
