@@ -1,11 +1,12 @@
 package database
 
 import (
+	"log"
+
 	"github.com/hhandhuan/gin-skeleton/configs"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"log"
 )
 
 var Mysql *gorm.DB

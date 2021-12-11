@@ -7,7 +7,6 @@ import (
 	"github.com/hhandhuan/gin-skeleton/internal/request"
 	"github.com/hhandhuan/gin-skeleton/internal/utils"
 	"github.com/hhandhuan/gin-skeleton/internal/utils/jwt"
-	"log"
 )
 
 var AuthService = &authService{}
@@ -21,7 +20,6 @@ func (*authService) CreateToken(request *request.CreateAuthTokenRequest) (*error
 	if user.ID <= 0 {
 		return errors.NewError(errors.CommonCode, "user does not exist"), ""
 	}
-	log.Println(utils.Md5(request.Password))
 	if user.Password != utils.Md5(request.Password) {
 		return errors.NewError(errors.CommonCode, "incorrect username or password"), ""
 	}

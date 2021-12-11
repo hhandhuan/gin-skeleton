@@ -1,10 +1,11 @@
 package middware
 
 import (
-	"github.com/hhandhuan/gin-skeleton/internal/errors"
-	"github.com/hhandhuan/gin-skeleton/internal/utils/jwt"
 	"strings"
 	"time"
+
+	"github.com/hhandhuan/gin-skeleton/internal/errors"
+	"github.com/hhandhuan/gin-skeleton/internal/utils/jwt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/hhandhuan/gin-skeleton/internal/utils/response"

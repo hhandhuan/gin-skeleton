@@ -2,11 +2,12 @@ package api
 
 import (
 	"fmt"
+	"log"
+
 	"github.com/hhandhuan/gin-skeleton/internal/errors"
 	apiRequest "github.com/hhandhuan/gin-skeleton/internal/request"
 	"github.com/hhandhuan/gin-skeleton/internal/service"
 	"github.com/hhandhuan/gin-skeleton/internal/utils/response"
-	"log"
 
 	"github.com/gin-gonic/gin"
 )

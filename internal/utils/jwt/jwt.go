@@ -1,8 +1,9 @@
 package jwt
 
 import (
-	"github.com/hhandhuan/gin-skeleton/configs"
 	"time"
+
+	"github.com/hhandhuan/gin-skeleton/configs"
 
 	"github.com/dgrijalva/jwt-go"
 )
