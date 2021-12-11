@@ -10,4 +10,6 @@ COPY . .
 
 RUN go mod tidy &&  go build  -o gin-skeleton .
 
+EXPOSE 8081
+
 ENTRYPOINT ["./gin-skeleton"]
