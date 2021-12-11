@@ -1,8 +1,9 @@
 package configs
 
 import (
-	"github.com/spf13/viper"
 	"log"
+
+	"github.com/spf13/viper"
 )
 
 type Server struct {

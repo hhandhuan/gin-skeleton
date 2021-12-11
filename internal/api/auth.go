@@ -23,22 +23,44 @@ type auth struct{}
 // @Tags 授权管理
 // @Accept json
 // @Produce json
+// @Param params body apiRequest.CreateAuthTokenRequest true "用户名, 密码"
 // @Success 200 object response.Result
 // @Router /api/auth/token [post]
 func (*auth) Token(ctx *gin.Context) {
 	var request apiRequest.CreateAuthTokenRequest
 	if err := ctx.ShouldBindJSON(&request); err != nil {
 		response.Error(ctx, errors.NewError(errors.ParamCode, err.Error()))
+		return
 	}
 	err, token := service.AuthService.CreateToken(&request)
 	if err != nil {
 		response.Error(ctx, err)
+		return
 	} else {
 		response.Data(ctx, gin.H{"token": fmt.Sprintf("Bearer %s", token)})
 	}
 }
 
+// Logged 获取用户信息
+// @Security BearerAuth
+// @Summary 获取用户信息
+// @Schemes
+// @Description 获取用户信息
+// @Tags 授权管理
+// @Accept json
+// @Produce json
+// @Success 200 object response.Result
+// @Router /api/auth/user [get]
+func (*auth) Logged(ctx *gin.Context) {
+	if err, user := service.UserService.GetLoggedUser(ctx); err != nil {
+		response.Error(ctx, err)
+	} else {
+		response.Data(ctx, user)
+	}
+}
+
 // Refresh 刷新令牌
+// @Security BearerAuth
 // @Summary 刷新令牌
 // @Schemes
 // @Description 刷新令牌
@@ -46,7 +68,7 @@ func (*auth) Token(ctx *gin.Context) {
 // @Accept json
 // @Produce json
 // @Success 200 object response.Result
-// @Router /api/auth/token [post]
+// @Router /api/auth/refresh [post]
 func (*auth) Refresh(ctx *gin.Context) {
 	log.Println("test")
 }

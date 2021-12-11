@@ -4,7 +4,7 @@ const (
 	AuthCode   = 4001
 	ParamCode  = 4002
 	ServerCode = 5000
-	CommonCode = 4022
+	CommonCode = 4000
 )
 
 type Error struct {

@@ -11,12 +11,11 @@ import (
 func Register(engine *gin.Engine) *gin.Engine {
 	apiGroup := engine.Group("api")
 	{
-		apiGroup.POST("token/create", api.Auth.Token)
+		apiGroup.POST("auth/token", api.Auth.Token)
 		apiGroup.Use(middware.JwtAuth())
 		{
-			apiGroup.POST("token/refresh", api.Auth.Token)
-			apiGroup.GET("user/details", api.User.Details)
-			apiGroup.POST("user/create", api.User.Create)
+			apiGroup.GET("auth/user", api.Auth.Logged)
+			apiGroup.POST("token/refresh", api.Auth.Refresh)
 		}
 	}
 	engine.NoRoute(func(ctx *gin.Context) {

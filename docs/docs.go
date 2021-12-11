@@ -23,9 +23,14 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/user/create": {
+        "/api/auth/refresh": {
             "post": {
-                "description": "用户创建",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "刷新令牌",
                 "consumes": [
                     "application/json"
                 ],
@@ -33,9 +38,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "用户管理"
+                    "授权管理"
                 ],
-                "summary": "用户创建",
+                "summary": "刷新令牌",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -46,9 +51,9 @@ var doc = `{
                 }
             }
         },
-        "/api/user/details": {
-            "get": {
-                "description": "用户详情",
+        "/api/auth/token": {
+            "post": {
+                "description": "令牌创建",
                 "consumes": [
                     "application/json"
                 ],
@@ -56,17 +61,53 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "用户管理"
+                    "授权管理"
                 ],
-                "summary": "用户详情",
+                "summary": "令牌创建",
+                "parameters": [
+                    {
+                        "description": "用户名, 密码",
+                        "name": "params",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CreateAuthTokenRequest"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/model.User"
-                            }
+                            "$ref": "#/definitions/response.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/user": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "获取用户信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "授权管理"
+                ],
+                "summary": "获取用户信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Result"
                         }
                     }
                 }
@@ -74,35 +115,19 @@ var doc = `{
         }
     },
     "definitions": {
-        "model.User": {
+        "request.CreateAuthTokenRequest": {
             "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
             "properties": {
-                "create_at": {
-                    "description": "创建时间",
-                    "type": "integer"
-                },
-                "id": {
-                    "description": "ID",
-                    "type": "integer"
-                },
-                "nickname": {
-                    "description": "用户呢称",
-                    "type": "string"
-                },
                 "password": {
-                    "description": "密码",
+                    "description": "登陆密码",
                     "type": "string"
-                },
-                "phone": {
-                    "description": "手机号",
-                    "type": "string"
-                },
-                "updated_at": {
-                    "description": "更新时间",
-                    "type": "integer"
                 },
                 "username": {
-                    "description": "用户名称",
+                    "description": "登陆用户",
                     "type": "string"
                 }
             }
@@ -123,6 +148,13 @@ var doc = `{
                 }
             }
         }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
     }
 }`
 
@@ -137,12 +169,12 @@ type swaggerInfo struct {
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
-	Version:     "",
-	Host:        "",
+	Version:     "1.0",
+	Host:        "127.0.0.1:8081",
 	BasePath:    "",
 	Schemes:     []string{},
-	Title:       "",
-	Description: "",
+	Title:       "gin-skeleton",
+	Description: "gin-skeleton 示例项目",
 }
 
 type s struct{}

@@ -19,11 +19,6 @@ import (
 	_ "github.com/hhandhuan/gin-skeleton/docs"
 )
 
-// Run server run
-// @title gin-skeleton
-// @version 1.0
-// @description gin-skeleton 示例项目
-// @host 127.0.0.1:8080
 func Run() {
 	engine := gin.New()
 	if configs.Conf.Server.Pprof {
