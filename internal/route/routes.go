@@ -21,6 +21,7 @@ func Register(engine *gin.Engine) *gin.Engine {
 	{
 		group.GET("auth/user", api.Auth.Logged)
 		group.POST("token/refresh", api.Auth.Refresh)
+		group.POST("user/edit", api.User.Edit)
 	}
 	return engine
 }

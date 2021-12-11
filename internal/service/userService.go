@@ -5,8 +5,8 @@ import (
 	"github.com/hhandhuan/gin-skeleton/database"
 	"github.com/hhandhuan/gin-skeleton/internal/errors"
 	"github.com/hhandhuan/gin-skeleton/internal/model"
+	apiRequest "github.com/hhandhuan/gin-skeleton/internal/request"
 )
-
 
 var UserService = &userService{}
 
@@ -24,4 +24,14 @@ func (*userService) GetLoggedUser(ctx *gin.Context) (*errors.Error, *model.User)
 		return errors.NewError(errors.CommonCode, "user does not exist"), nil
 	}
 	return nil, &user
+}
+
+// EditUserInfo 编辑用户基础信息
+func (u *userService) EditUserInfo(ctx *gin.Context, request *apiRequest.EditUserRequest) *errors.Error {
+	err, user := u.GetLoggedUser(ctx)
+	if err != nil {
+		return err
+	}
+	database.Mysql.Table("users").Where("id = ?", user.ID).Updates(request)
+	return nil
 }
