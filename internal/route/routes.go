@@ -20,7 +20,7 @@ func Register(engine *gin.Engine) *gin.Engine {
 	group.Use(middware.JwtAuth())
 	{
 		group.GET("auth/user", api.Auth.Logged)
-		group.POST("token/refresh", api.Auth.Refresh)
+		group.POST("auth/logout", api.Auth.Logout)
 		group.POST("user/edit", api.User.Edit)
 	}
 	return engine

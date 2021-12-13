@@ -2,14 +2,12 @@ package api
 
 import (
 	"fmt"
-	"log"
-
+	"github.com/gin-gonic/gin"
 	"github.com/hhandhuan/gin-skeleton/internal/errors"
 	apiRequest "github.com/hhandhuan/gin-skeleton/internal/request"
 	"github.com/hhandhuan/gin-skeleton/internal/service"
+	"github.com/hhandhuan/gin-skeleton/internal/utils"
 	"github.com/hhandhuan/gin-skeleton/internal/utils/response"
-
-	"github.com/gin-gonic/gin"
 )
 
 var Auth = &auth{}
@@ -28,10 +26,11 @@ type auth struct{}
 // @Router /api/auth/token [post]
 func (*auth) Token(ctx *gin.Context) {
 	var request apiRequest.CreateAuthTokenRequest
-	if err := ctx.ShouldBindJSON(&request); err != nil {
+	if err := ctx.ShouldBind(&request); err != nil {
 		response.Error(ctx, errors.NewError(errors.ParamCode, err))
 		return
 	}
+	fmt.Println(request)
 	err, token := service.AuthService.CreateToken(&request)
 	if err != nil {
 		response.Error(ctx, err)
@@ -60,16 +59,21 @@ func (*auth) Logged(ctx *gin.Context) {
 	}
 }
 
-// Refresh 刷新令牌
+// logout 退出登录
 // @Security BearerAuth
-// @Summary 刷新令牌
+// @Summary 退出登录
 // @Schemes
-// @Description 刷新令牌
+// @Description 退出登录
 // @Tags 授权管理
 // @Accept json
 // @Produce json
 // @Success 200 object response.Result
-// @Router /api/auth/refresh [post]
-func (*auth) Refresh(ctx *gin.Context) {
-	log.Println("test")
+// @Router /api/auth/logout [get]
+func (*auth) Logout(ctx *gin.Context) {
+	_, token := utils.ParseTokenByHeader(ctx)
+	if err := service.JwtService.JoinBlackList(token); err != nil {
+		response.Error(ctx, err)
+	} else {
+		response.Data(ctx, nil)
+	}
 }

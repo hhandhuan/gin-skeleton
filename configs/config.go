@@ -21,10 +21,18 @@ type Jwt struct {
 	Ttl    int    `mapstructure:"ttl"`
 }
 
+type Redis struct {
+	Host     string `mapstructure:"host"`
+	Port     int    `mapstructure:"port"`
+	DB       int    `mapstructure:"db"`
+	Password string `mapstructure:"password"`
+}
+
 type Config struct {
 	Server   `mapstructure:"server"`
 	Database `mapstructure:"database"`
 	Jwt      `mapstructure:"jwt"`
+	Redis    `mapstructure:"redis"`
 }
 
 var Conf = &Config{}
@@ -39,4 +47,5 @@ func ConfigInit() {
 	if err := viper.Unmarshal(Conf); err != nil {
 		log.Fatal(err)
 	}
+	log.Println(Conf.Redis)
 }

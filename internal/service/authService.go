@@ -6,7 +6,6 @@ import (
 	"github.com/hhandhuan/gin-skeleton/internal/model"
 	"github.com/hhandhuan/gin-skeleton/internal/request"
 	"github.com/hhandhuan/gin-skeleton/internal/utils"
-	"github.com/hhandhuan/gin-skeleton/internal/utils/jwt"
 )
 
 var AuthService = &authService{}
@@ -23,7 +22,7 @@ func (*authService) CreateToken(request *request.CreateAuthTokenRequest) (*error
 	if user.Password != utils.Md5(request.Password) {
 		return errors.NewError(errors.CommonCode, "incorrect username or password"), ""
 	}
-	token, err := jwt.MakeToken(user.ID)
+	token, err := JwtService.MakeToken(user.ID)
 	if err != nil {
 		return errors.NewError(errors.CommonCode, err), ""
 	}

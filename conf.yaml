@@ -9,3 +9,8 @@ jwt:
   secret: "K~ojhVn4:Q6cbZd)dR.1Q7zQTDYU)s?bA_WpC0=:"
   # 周期天
   ttl: 7
+redis:
+  host: 127.0.0.1
+  port: 6379
+  db: 0
+  password:

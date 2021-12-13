@@ -1,11 +1,11 @@
 package middware
 
 import (
-	"strings"
+	"github.com/hhandhuan/gin-skeleton/internal/service"
+	"github.com/hhandhuan/gin-skeleton/internal/utils"
 	"time"
 
 	"github.com/hhandhuan/gin-skeleton/internal/errors"
-	"github.com/hhandhuan/gin-skeleton/internal/utils/jwt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/hhandhuan/gin-skeleton/internal/utils/response"
@@ -13,14 +13,13 @@ import (
 
 func JwtAuth() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		token := ctx.Request.Header.Get("Authorization")
-		tokens := strings.Split(token, " ")
-		if len(token) <= 0 || tokens[0] != "Bearer" || len(tokens[1]) <= 0 {
+		err, token := utils.ParseTokenByHeader(ctx)
+		if err != nil {
 			response.Error(ctx, errors.NewError(errors.UNAuthCode, "invalid token"))
 			ctx.Abort()
 			return
 		}
-		claim, err := jwt.ParseToken(tokens[1])
+		claim, err := service.JwtService.ParseToken(token)
 		if err != nil {
 			response.Error(ctx, errors.NewError(errors.UNAuthCode, err.Error()))
 			ctx.Abort()
@@ -28,6 +27,11 @@ func JwtAuth() gin.HandlerFunc {
 		}
 		if time.Now().Unix() > claim.ExpiresAt {
 			response.Error(ctx, errors.NewError(errors.UNAuthCode, "token has expired"))
+			ctx.Abort()
+			return
+		}
+		if service.JwtService.InBlackList(token) {
+			response.Error(ctx, errors.NewError(errors.UNAuthCode, "invalid token"))
 			ctx.Abort()
 			return
 		}

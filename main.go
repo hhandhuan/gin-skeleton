@@ -20,6 +20,7 @@ func main() {
 	configs.ConfigInit()
 	// 初始数据库
 	database.MysqlInit()
+	database.RedisInit()
 	// 启动服务
 	server.Run()
 }
