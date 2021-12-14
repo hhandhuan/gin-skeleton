@@ -28,11 +28,20 @@ type Redis struct {
 	Password string `mapstructure:"password"`
 }
 
+type Logger struct {
+	Filename   string `mapstructure:"filename"`
+	Maxsize    int    `mapstructure:"maxsize"`
+	MaxBackups int    `mapstructure:"maxbackups"`
+	Maxage     int    `mapstructure:"maxage"`
+	Level      string `mapstructure:"level"`
+}
+
 type Config struct {
 	Server   `mapstructure:"server"`
 	Database `mapstructure:"database"`
 	Jwt      `mapstructure:"jwt"`
 	Redis    `mapstructure:"redis"`
+	Logger   `mapstructure:"logger"`
 }
 
 var Conf = &Config{}

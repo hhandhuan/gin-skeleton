@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"github.com/hhandhuan/gin-skeleton/internal/middware"
 	"log"
 	"net/http"
 	"os"
@@ -20,11 +21,12 @@ import (
 )
 
 func Run() {
+	gin.SetMode(configs.Conf.Server.Mode)
 	engine := gin.New()
 	if configs.Conf.Server.Pprof {
 		pprof.Register(engine)
 	}
-	engine.Use(gin.Logger(), gin.Recovery())
+	engine.Use(middware.Logger(), middware.Recovery(true))
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(waggeries.Handler))
 	server := &http.Server{
 		Addr:           configs.Conf.Server.Addr,

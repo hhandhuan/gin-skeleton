@@ -15,6 +15,7 @@ func RedisInit() {
 		Addr:     fmt.Sprintf("%s:%d", configs.Conf.Redis.Host, configs.Conf.Redis.Port),
 		Password: configs.Conf.Redis.Password,
 		DB:       configs.Conf.Redis.DB,
+		PoolSize: 50,
 	})
 	_, err := Redis.Ping(context.Background()).Result()
 	if err != nil {

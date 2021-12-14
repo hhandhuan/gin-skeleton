@@ -3,13 +3,14 @@ package service
 import (
 	"context"
 	"fmt"
+	"strconv"
+	"time"
+
 	"github.com/dgrijalva/jwt-go"
 	"github.com/hhandhuan/gin-skeleton/configs"
 	"github.com/hhandhuan/gin-skeleton/database"
 	"github.com/hhandhuan/gin-skeleton/internal/errors"
 	"github.com/hhandhuan/gin-skeleton/internal/utils"
-	"strconv"
-	"time"
 )
 
 var JwtService = &jwtService{}
@@ -58,7 +59,7 @@ func (a *jwtService) InBlackList(token string) bool {
 	if value == "" || err != nil {
 		return false
 	}
-	timeValue, err := strconv.ParseInt(value, 10, 64)
+	timeValue, _ := strconv.ParseInt(value, 10, 64)
 	if time.Now().Unix()-timeValue < 10 {
 		return false
 	}

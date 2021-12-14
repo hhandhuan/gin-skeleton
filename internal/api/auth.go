@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/hhandhuan/gin-skeleton/internal/errors"
 	apiRequest "github.com/hhandhuan/gin-skeleton/internal/request"
@@ -30,7 +31,6 @@ func (*auth) Token(ctx *gin.Context) {
 		response.Error(ctx, errors.NewError(errors.ParamCode, err))
 		return
 	}
-	fmt.Println(request)
 	err, token := service.AuthService.CreateToken(&request)
 	if err != nil {
 		response.Error(ctx, err)

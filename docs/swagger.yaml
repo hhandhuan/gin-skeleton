@@ -11,6 +11,18 @@ definitions:
     - password
     - username
     type: object
+  request.EditUserRequest:
+    properties:
+      nickname:
+        description: 用户别名
+        type: string
+      username:
+        description: 登录名
+        type: string
+    required:
+    - nickname
+    - username
+    type: object
   response.Result:
     properties:
       code:
@@ -29,11 +41,11 @@ info:
   title: gin-skeleton
   version: "1.0"
 paths:
-  /api/auth/refresh:
-    post:
+  /api/auth/logout:
+    get:
       consumes:
       - application/json
-      description: 刷新令牌
+      description: 退出登录
       produces:
       - application/json
       responses:
@@ -43,7 +55,7 @@ paths:
             $ref: '#/definitions/response.Result'
       security:
       - BearerAuth: []
-      summary: 刷新令牌
+      summary: 退出登录
       tags:
       - 授权管理
   /api/auth/token:
@@ -83,6 +95,28 @@ paths:
       security:
       - BearerAuth: []
       summary: 获取用户信息
+      tags:
+      - 授权管理
+  /api/user/edit:
+    post:
+      consumes:
+      - application/json
+      description: 修改基础信息
+      parameters:
+      - description: 用户名, 用户呢称
+        in: body
+        name: params
+        required: true
+        schema:
+          $ref: '#/definitions/request.EditUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Result'
+      summary: 修改基础信息
       tags:
       - 授权管理
 securityDefinitions:

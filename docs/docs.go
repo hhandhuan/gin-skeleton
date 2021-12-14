@@ -23,14 +23,14 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/auth/refresh": {
-            "post": {
+        "/api/auth/logout": {
+            "get": {
                 "security": [
                     {
                         "BearerAuth": []
                     }
                 ],
-                "description": "刷新令牌",
+                "description": "退出登录",
                 "consumes": [
                     "application/json"
                 ],
@@ -40,7 +40,7 @@ var doc = `{
                 "tags": [
                     "授权管理"
                 ],
-                "summary": "刷新令牌",
+                "summary": "退出登录",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -112,6 +112,40 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/api/user/edit": {
+            "post": {
+                "description": "修改基础信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "授权管理"
+                ],
+                "summary": "修改基础信息",
+                "parameters": [
+                    {
+                        "description": "用户名, 用户呢称",
+                        "name": "params",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.EditUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Result"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -128,6 +162,23 @@ var doc = `{
                 },
                 "username": {
                     "description": "登陆用户",
+                    "type": "string"
+                }
+            }
+        },
+        "request.EditUserRequest": {
+            "type": "object",
+            "required": [
+                "nickname",
+                "username"
+            ],
+            "properties": {
+                "nickname": {
+                    "description": "用户别名",
+                    "type": "string"
+                },
+                "username": {
+                    "description": "登录名",
                     "type": "string"
                 }
             }

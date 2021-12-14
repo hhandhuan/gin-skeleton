@@ -1,9 +1,10 @@
 package middware
 
 import (
+	"time"
+
 	"github.com/hhandhuan/gin-skeleton/internal/service"
 	"github.com/hhandhuan/gin-skeleton/internal/utils"
-	"time"
 
 	"github.com/hhandhuan/gin-skeleton/internal/errors"
 

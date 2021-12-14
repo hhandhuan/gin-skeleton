@@ -3,10 +3,11 @@ package database
 import (
 	"log"
 
-	"github.com/hhandhuan/gin-skeleton/configs"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
+	gormDefaultLogger "gorm.io/gorm/logger"
+
+	"github.com/hhandhuan/gin-skeleton/configs"
 )
 
 var Mysql *gorm.DB
@@ -21,7 +22,7 @@ func MysqlInit() {
 		DontSupportRenameColumn:   true,                       // 用 `change` 重命名列，MySQL 8 之前的数据库和 MariaDB 不支持重命名列
 		SkipInitializeWithVersion: false,                      // 根据当前 MySQL 版本自动配置
 	}), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info),
+		Logger: gormDefaultLogger.Default.LogMode(gormDefaultLogger.Info),
 	})
 	if err != nil {
 		log.Fatal(err)
