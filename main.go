@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/hhandhuan/gin-skeleton/configs"
 	"github.com/hhandhuan/gin-skeleton/database"
-	"github.com/hhandhuan/gin-skeleton/logger"
 	"github.com/hhandhuan/gin-skeleton/server"
 )
 
@@ -19,8 +18,6 @@ import (
 func main() {
 	// 初始化配置
 	configs.ConfigInit()
-	// 初始化日志
-	logger.LoggerInit()
 	// 初始化 Mysql
 	database.MysqlInit()
 	// 初始化 Redis

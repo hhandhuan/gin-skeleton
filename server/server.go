@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"github.com/hhandhuan/gin-skeleton/internal/middware"
 	"log"
 	"net/http"
 	"os"
@@ -26,7 +25,7 @@ func Run() {
 	if configs.Conf.Server.Pprof {
 		pprof.Register(engine)
 	}
-	engine.Use(middware.Logger(), middware.Recovery(true))
+	engine.Use(gin.Logger(), gin.Recovery())
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(waggeries.Handler))
 	server := &http.Server{
 		Addr:           configs.Conf.Server.Addr,
@@ -41,7 +40,7 @@ func Run() {
 		}
 	}()
 
-	// 监听信号
+	// 监听终端信号
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit

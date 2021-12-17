@@ -12,13 +12,16 @@ var Redis *redis.Client
 
 func RedisInit() {
 	Redis = redis.NewClient(&redis.Options{
-		Addr:     fmt.Sprintf("%s:%d", configs.Conf.Redis.Host, configs.Conf.Redis.Port),
+		Addr: fmt.Sprintf("%s:%d",
+			configs.Conf.Redis.Host,
+			configs.Conf.Redis.Port,
+		),
 		Password: configs.Conf.Redis.Password,
 		DB:       configs.Conf.Redis.DB,
 		PoolSize: 50,
 	})
-	_, err := Redis.Ping(context.Background()).Result()
-	if err != nil {
-		log.Fatal("Redis connect ping failed, err: %s", err.Error())
+	str, err := Redis.Ping(context.Background()).Result()
+	if err != nil || str != "PONG" {
+		log.Fatalf("Redis connect ping failed, err: %s", err.Error())
 	}
 }

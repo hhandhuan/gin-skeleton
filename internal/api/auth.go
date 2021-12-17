@@ -59,7 +59,7 @@ func (*auth) Logged(ctx *gin.Context) {
 	}
 }
 
-// logout 退出登录
+// Logout 退出登录
 // @Security BearerAuth
 // @Summary 退出登录
 // @Schemes
