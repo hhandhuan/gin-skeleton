@@ -1,3 +1,4 @@
 .idea
 tmp
 /logs/*
+.DS_Store
