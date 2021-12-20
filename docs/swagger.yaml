@@ -97,6 +97,44 @@ paths:
       summary: 获取用户信息
       tags:
       - 授权管理
+  /api/ping:
+    get:
+      consumes:
+      - application/json
+      description: 服务健康
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Result'
+      summary: 服务健康
+      tags:
+      - 基础管理
+  /api/user/{uid}:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户详情
+      parameters:
+      - description: user ID
+        in: path
+        name: uid
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Result'
+      security:
+      - BearerAuth: []
+      summary: 获取用户详情
+      tags:
+      - 用户管理
   /api/user/edit:
     post:
       consumes:
@@ -116,9 +154,11 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/response.Result'
+      security:
+      - BearerAuth: []
       summary: 修改基础信息
       tags:
-      - 授权管理
+      - 用户管理
 securityDefinitions:
   BearerAuth:
     in: header

@@ -48,12 +48,10 @@ func (*jwtService) ParseToken(token string) (*Claims, error) {
 	return nil, err
 }
 
-// MakeBlackListKey
 func (*jwtService) MakeBlackListKey(token string) string {
 	return fmt.Sprintf("jwt_black_list:%s", utils.Md5(token))
 }
 
-// InBlackList
 func (a *jwtService) InBlackList(token string) bool {
 	value, err := database.Redis.Get(context.Background(), a.MakeBlackListKey(token)).Result()
 	if value == "" || err != nil {
@@ -66,7 +64,6 @@ func (a *jwtService) InBlackList(token string) bool {
 	return true
 }
 
-// JoinBlackList
 func (a *jwtService) JoinBlackList(token string) *errors.Error {
 	claims, _ := a.ParseToken(token)
 	currTime := time.Now().Unix()

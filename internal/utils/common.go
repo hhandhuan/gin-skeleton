@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"github.com/gin-gonic/gin"
+	"strconv"
 	"strings"
 )
 
@@ -21,4 +22,13 @@ func ParseTokenByHeader(ctx *gin.Context) (error, string) {
 		return errors.New("parse token error"), ""
 	}
 	return nil, tokens[1]
+}
+
+func StrToInt(str string) int {
+	n, _ := strconv.Atoi(str)
+	return n
+}
+
+func IntToStr(i int) string {
+	return strconv.Itoa(i)
 }

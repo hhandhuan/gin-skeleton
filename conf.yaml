@@ -1,6 +1,6 @@
 server:
   addr: ":8081"
-  mode: "debug"
+  mode: "debug" # release
   pprof: true
 database:
   link: "root:@(127.0.0.1:3306)/gin-admin?charset=utf8mb4&parseTime=True&loc=Local"

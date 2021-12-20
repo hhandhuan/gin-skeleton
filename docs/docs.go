@@ -113,8 +113,36 @@ var doc = `{
                 }
             }
         },
+        "/api/ping": {
+            "get": {
+                "description": "服务健康",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "基础管理"
+                ],
+                "summary": "服务健康",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Result"
+                        }
+                    }
+                }
+            }
+        },
         "/api/user/edit": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "修改基础信息",
                 "consumes": [
                     "application/json"
@@ -123,7 +151,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "授权管理"
+                    "用户管理"
                 ],
                 "summary": "修改基础信息",
                 "parameters": [
@@ -135,6 +163,43 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/request.EditUserRequest"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/{uid}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "获取用户详情",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "获取用户详情",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user ID",
+                        "name": "uid",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {

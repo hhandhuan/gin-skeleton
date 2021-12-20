@@ -22,7 +22,7 @@ func JwtAuth() gin.HandlerFunc {
 		}
 		claim, err := service.JwtService.ParseToken(token)
 		if err != nil {
-			response.Error(ctx, errors.NewError(errors.UNAuthCode, err.Error()))
+			response.Error(ctx, errors.NewError(errors.UNAuthCode, "invalid token"))
 			ctx.Abort()
 			return
 		}

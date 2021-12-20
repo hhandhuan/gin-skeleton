@@ -16,12 +16,14 @@ func Register(engine *gin.Engine) *gin.Engine {
 		response.Error(ctx, errors.NewError(errors.CommonCode, "method not found"))
 	})
 	group := engine.Group("api")
+	group.GET("ping", api.Base.Ping)
 	group.POST("auth/token", api.Auth.Token)
 	group.Use(middware.JwtAuth())
 	{
 		group.GET("auth/user", api.Auth.Logged)
 		group.POST("auth/logout", api.Auth.Logout)
 		group.POST("user/edit", api.User.Edit)
+		group.GET("user/:uid", api.User.Show)
 	}
 	return engine
 }

@@ -35,3 +35,13 @@ func (u *userService) EditUserInfo(ctx *gin.Context, request *apiRequest.EditUse
 	database.Mysql.Table("users").Where("id = ?", user.ID).Updates(request)
 	return nil
 }
+
+// GetUserByID 获取用户根据ID
+func (*userService) GetUserByID(uid interface{}) (*errors.Error, *model.User) {
+	var user model.User
+	database.Mysql.Table("users").Where("id = ?", uid).First(&user)
+	if user.ID <= 0 {
+		return errors.NewError(errors.CommonCode, "user does not exist"), nil
+	}
+	return nil, &user
+}
