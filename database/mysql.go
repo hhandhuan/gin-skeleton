@@ -2,6 +2,7 @@ package database
 
 import (
 	"log"
+	"time"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -33,5 +34,7 @@ func MysqlInit() {
 	}
 	sqlDB.SetMaxIdleConns(10)
 	sqlDB.SetMaxOpenConns(100)
+	// 设置可以重用连接的最长时间
+	sqlDB.SetConnMaxLifetime(time.Minute * 3)
 	Mysql = db
 }
