@@ -33,7 +33,7 @@ type Logger struct {
 	Maxsize    int    `mapstructure:"maxsize"`
 	MaxBackups int    `mapstructure:"maxbackups"`
 	Maxage     int    `mapstructure:"maxage"`
-	Level      string `mapstructure:"level"`
+	Level      int `mapstructure:"level"`
 }
 
 type Config struct {
@@ -46,7 +46,7 @@ type Config struct {
 
 var Conf = &Config{}
 
-func ConfigInit() {
+func Init() {
 	viper.SetConfigName("conf")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath(".")
@@ -56,5 +56,4 @@ func ConfigInit() {
 	if err := viper.Unmarshal(Conf); err != nil {
 		log.Fatal(err)
 	}
-	log.Println(Conf.Redis)
 }

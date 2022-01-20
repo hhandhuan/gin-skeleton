@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/hhandhuan/gin-skeleton/internal/utils/response"
+	"github.com/hhandhuan/gin-skeleton/logger"
 )
 
 var Base = &base{}
@@ -19,5 +20,8 @@ type base struct{}
 // @Success 200 object response.Result
 // @Router /api/ping [get]
 func (*base) Ping(ctx *gin.Context) {
+	for i := 0; i < 1000; i++ {
+		logger.I.WithField("username", "erici")
+	}
 	response.Data(ctx, "pong")
 }

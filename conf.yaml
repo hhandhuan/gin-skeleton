@@ -13,8 +13,8 @@ redis:
   db: 0
   password:
 logger:
-  filename: "./logs/gin-skeleton.log"
+  filename: "./log/gin-skeleton.log"
   maxsize: 1
   maxbackups: 1
   maxage: 30
-  level: "info"
+  level: 5

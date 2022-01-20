@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/go-redis/redis/v8"
 	"github.com/hhandhuan/gin-skeleton/configs"
-	"log"
+	"github.com/hhandhuan/gin-skeleton/logger"
 )
 
 var Redis *redis.Client
@@ -18,10 +18,10 @@ func RedisInit() {
 		),
 		Password: configs.Conf.Redis.Password,
 		DB:       configs.Conf.Redis.DB,
-		PoolSize: 50,
+		PoolSize: 10,
 	})
 	str, err := Redis.Ping(context.Background()).Result()
 	if err != nil || str != "PONG" {
-		log.Fatalf("Redis connect ping failed, err: %s", err.Error())
+		logger.I.Fatalf("Redis connect ping failed, err: %v", err)
 	}
 }

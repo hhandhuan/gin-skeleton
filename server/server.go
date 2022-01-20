@@ -2,7 +2,7 @@ package server
 
 import (
 	"context"
-	"log"
+	"github.com/hhandhuan/gin-skeleton/logger"
 	"net/http"
 	"os"
 	"os/signal"
@@ -36,12 +36,12 @@ func Run() {
 	}
 	go func() {
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("listen: %s\n", err)
+			logger.I.Fatalf("listen: %s\n", err)
 		}
 	}()
 
 	// 监听终端信号
-	quit := make(chan os.Signal)
+	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
 
@@ -49,10 +49,10 @@ func Run() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*1)
 	defer cancel()
 	if err := server.Shutdown(ctx); err != nil {
-		log.Printf("Server Shutdown: %v \n", err)
+		logger.I.Printf("Server Shutdown: %v \n", err)
 	}
 	select {
 	case <-ctx.Done():
-		log.Printf("timeout of %d seconds. \n", 1)
+		logger.I.Printf("timeout of %d seconds. \n", 1)
 	}
 }

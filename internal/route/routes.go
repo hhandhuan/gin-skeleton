@@ -10,7 +10,7 @@ import (
 
 func Register(engine *gin.Engine) *gin.Engine {
 	engine.NoRoute(func(ctx *gin.Context) {
-		response.Error(ctx, errors.NewError(errors.CommonCode, "path not found"))
+		response.Error(ctx, errors.NewError(errors.CommonCode, "404 not found"))
 	})
 	engine.NoMethod(func(ctx *gin.Context) {
 		response.Error(ctx, errors.NewError(errors.CommonCode, "method not found"))
