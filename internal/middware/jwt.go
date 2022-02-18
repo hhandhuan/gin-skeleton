@@ -26,7 +26,8 @@ func JwtAuth() gin.HandlerFunc {
 			ctx.Abort()
 			return
 		}
-		if time.Now().Unix() > claim.ExpiresAt {
+		// 提前五分钟过期
+		if time.Now().Unix()-300 > claim.ExpiresAt {
 			response.Error(ctx, errors.NewError(errors.UNAuthCode, "token has expired"))
 			ctx.Abort()
 			return
