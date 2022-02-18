@@ -20,7 +20,7 @@ func JwtAuth() gin.HandlerFunc {
 			ctx.Abort()
 			return
 		}
-		claim, err := service.JwtService.ParseToken(token)
+		claim, err := service.Jwt().ParseToken(token)
 		if err != nil {
 			response.Error(ctx, errors.NewError(errors.UNAuthCode, "invalid token"))
 			ctx.Abort()
@@ -31,7 +31,7 @@ func JwtAuth() gin.HandlerFunc {
 			ctx.Abort()
 			return
 		}
-		if service.JwtService.InBlackList(token) {
+		if service.Jwt().InBlackList(token) {
 			response.Error(ctx, errors.NewError(errors.UNAuthCode, "invalid token"))
 			ctx.Abort()
 			return

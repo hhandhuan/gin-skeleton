@@ -31,7 +31,7 @@ func (*auth) Token(ctx *gin.Context) {
 		response.Error(ctx, errors.NewError(errors.ParamCode, err))
 		return
 	}
-	err, token := service.AuthService.CreateToken(&request)
+	err, token := service.Auth().CreateToken(&request)
 	if err != nil {
 		response.Error(ctx, err)
 		return
@@ -52,7 +52,7 @@ func (*auth) Token(ctx *gin.Context) {
 // @Success 200 object response.Result
 // @Router /api/auth/user [get]
 func (*auth) Logged(ctx *gin.Context) {
-	if err, user := service.UserService.GetLoggedUser(ctx); err != nil {
+	if err, user := service.User().GetLoggedUser(ctx); err != nil {
 		response.Error(ctx, err)
 	} else {
 		response.Data(ctx, user)
@@ -71,7 +71,7 @@ func (*auth) Logged(ctx *gin.Context) {
 // @Router /api/auth/logout [get]
 func (*auth) Logout(ctx *gin.Context) {
 	_, token := utils.ParseTokenByHeader(ctx)
-	if err := service.JwtService.JoinBlackList(token); err != nil {
+	if err := service.Jwt().JoinBlackList(token); err != nil {
 		response.Error(ctx, err)
 	} else {
 		response.Data(ctx, nil)

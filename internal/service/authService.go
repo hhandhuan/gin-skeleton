@@ -9,9 +9,13 @@ import (
 	"github.com/hhandhuan/gin-skeleton/logger"
 )
 
-var AuthService = &authService{}
+var insAuth = &authService{}
 
 type authService struct{}
+
+func Auth() *authService {
+	return insAuth
+}
 
 // CreateToken CreateToken
 func (*authService) CreateToken(request *request.CreateAuthTokenRequest) (*errors.Error, string) {
@@ -24,7 +28,7 @@ func (*authService) CreateToken(request *request.CreateAuthTokenRequest) (*error
 	if user.Password != utils.Md5(request.Password) {
 		return errors.NewError(errors.CommonCode, "incorrect username or password"), ""
 	}
-	token, err := JwtService.MakeToken(user.ID)
+	token, err := jnsJwt.MakeToken(user.ID)
 	if err != nil {
 		return errors.NewError(errors.CommonCode, err), ""
 	}

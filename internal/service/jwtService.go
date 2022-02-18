@@ -13,9 +13,13 @@ import (
 	"github.com/hhandhuan/gin-skeleton/internal/utils"
 )
 
-var JwtService = &jwtService{}
+var jnsJwt = &jwtService{}
 
 type jwtService struct{}
+
+func Jwt() *jwtService {
+	return jnsJwt
+}
 
 type Claims struct {
 	Uid int64 `json:"uid"`

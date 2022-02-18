@@ -30,7 +30,7 @@ func (*user) Edit(ctx *gin.Context) {
 		response.Error(ctx, errors.NewError(errors.ParamCode, err))
 		return
 	}
-	if err := service.UserService.EditUserInfo(ctx, &request); err != nil {
+	if err := service.User().EditUserInfo(ctx, &request); err != nil {
 		response.Error(ctx, err)
 		return
 	} else {
@@ -55,7 +55,7 @@ func (*user) Show(ctx *gin.Context) {
 		response.Error(ctx, errors.NewError(errors.ParamCode, "参数错误"))
 		return
 	}
-	err, user := service.UserService.GetUserByID(uid)
+	err, user := service.User().GetUserByID(uid)
 	if err != nil {
 		response.Error(ctx, err)
 		return

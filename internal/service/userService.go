@@ -8,9 +8,13 @@ import (
 	apiRequest "github.com/hhandhuan/gin-skeleton/internal/request"
 )
 
-var UserService = &userService{}
+var insUser = &userService{}
 
 type userService struct{}
+
+func User() *userService {
+	return insUser
+}
 
 // GetLoggedUser 获取当前登陆的用户
 func (*userService) GetLoggedUser(ctx *gin.Context) (*errors.Error, *model.User) {
