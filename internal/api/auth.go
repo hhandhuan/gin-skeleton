@@ -1,8 +1,6 @@
 package api
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/hhandhuan/gin-skeleton/internal/errors"
 	apiRequest "github.com/hhandhuan/gin-skeleton/internal/request"
@@ -36,8 +34,7 @@ func (*auth) Token(ctx *gin.Context) {
 		response.Error(ctx, err)
 		return
 	} else {
-		result := gin.H{"token": fmt.Sprintf("Bearer %s", token)}
-		response.Data(ctx, result)
+		response.Data(ctx, gin.H{"token": token})
 	}
 }
 

@@ -1,12 +1,12 @@
 package service
 
 import (
+	"fmt"
 	"github.com/hhandhuan/gin-skeleton/database"
 	"github.com/hhandhuan/gin-skeleton/internal/errors"
 	"github.com/hhandhuan/gin-skeleton/internal/model"
 	"github.com/hhandhuan/gin-skeleton/internal/request"
 	"github.com/hhandhuan/gin-skeleton/internal/utils"
-	"github.com/hhandhuan/gin-skeleton/logger"
 )
 
 var insAuth = &authService{}
@@ -24,7 +24,6 @@ func (*authService) CreateToken(request *request.CreateAuthTokenRequest) (*error
 	if user.ID <= 0 {
 		return errors.NewError(errors.CommonCode, "user does not exist"), ""
 	}
-	logger.I.Info(utils.Md5(request.Password))
 	if user.Password != utils.Md5(request.Password) {
 		return errors.NewError(errors.CommonCode, "incorrect username or password"), ""
 	}
@@ -32,5 +31,5 @@ func (*authService) CreateToken(request *request.CreateAuthTokenRequest) (*error
 	if err != nil {
 		return errors.NewError(errors.CommonCode, err), ""
 	}
-	return nil, token
+	return nil, fmt.Sprintf("Bearer %s", token)
 }
