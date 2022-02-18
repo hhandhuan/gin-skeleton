@@ -6,9 +6,10 @@ import (
 	"github.com/sirupsen/logrus"
 	"path"
 )
+
 var I = logrus.New()
 
-func Init() {
+func init() {
 	// 设置输出
 	I.SetOutput(&lumberjack.Logger{
 		Filename:   path.Join(configs.Conf.Logger.Filename), // 日志文件位置

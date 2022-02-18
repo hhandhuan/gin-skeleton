@@ -10,7 +10,7 @@ import (
 
 var Redis *redis.Client
 
-func RedisInit() {
+func init() {
 	Redis = redis.NewClient(&redis.Options{
 		Addr: fmt.Sprintf("%s:%d",
 			configs.Conf.Redis.Host,

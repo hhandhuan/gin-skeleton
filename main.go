@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/hhandhuan/gin-skeleton/configs"
-	"github.com/hhandhuan/gin-skeleton/database"
-	"github.com/hhandhuan/gin-skeleton/logger"
+	_ "github.com/hhandhuan/gin-skeleton/configs"
+	_ "github.com/hhandhuan/gin-skeleton/database"
+	_ "github.com/hhandhuan/gin-skeleton/logger"
 	"github.com/hhandhuan/gin-skeleton/server"
 )
 
@@ -17,14 +17,5 @@ import (
 // @name Authorization
 // @BashPth /
 func main() {
-	// 初始化配置
-	configs.Init()
-	// 日志初始化
-	logger.Init()
-	// 初始化 Mysql
-	database.MysqlInit()
-	// 初始化 Redis
-	database.RedisInit()
-	// 启动 HTTP 服务
 	server.Run()
 }

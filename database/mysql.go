@@ -14,7 +14,7 @@ import (
 var Mysql *gorm.DB
 
 // MysqlInit 初始化数据库
-func MysqlInit() {
+func init() {
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		DSN:                       configs.Conf.Database.Link, // DSN data source name
 		DefaultStringSize:         255,                        // string 类型字段的默认长度
@@ -32,9 +32,8 @@ func MysqlInit() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	sqlDB.SetMaxIdleConns(10)
-	sqlDB.SetMaxOpenConns(100)
-	// 设置可以重用连接的最长时间
-	sqlDB.SetConnMaxLifetime(time.Minute * 3)
+	sqlDB.SetMaxIdleConns(10)           // 设置空闲的最大连接数
+	sqlDB.SetMaxOpenConns(100)          // 设置与数据库的最大打开连接数
+	sqlDB.SetConnMaxLifetime(time.Hour) // 设置可以重用连接的最长时间
 	Mysql = db
 }

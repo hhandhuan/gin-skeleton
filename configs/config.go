@@ -46,7 +46,7 @@ type Config struct {
 
 var Conf = &Config{}
 
-func Init() {
+func init() {
 	viper.SetConfigName("conf")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath(".")
